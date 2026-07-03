@@ -59,7 +59,6 @@ private:
 	Ref<Curve> xfade_curve;
 	bool break_loop_at_end = false;
 	bool reset = true;
-	Ref<Curve> sync_mapping_curve;
 	int priority = 1;
 	String advance_expression;
 
@@ -68,10 +67,6 @@ private:
 
 protected:
 	static void _bind_methods();
-
-	bool _set(const StringName &p_name, const Variant &p_value);
-	bool _get(const StringName &p_name, Variant &r_ret) const;
-	void _get_property_list(List<PropertyInfo> *p_list) const;
 
 public:
 	void set_switch_mode(SwitchMode p_mode);
@@ -99,9 +94,6 @@ public:
 
 	void set_xfade_curve(const Ref<Curve> &p_curve);
 	Ref<Curve> get_xfade_curve() const;
-
-	void set_sync_mapping_curve(const Ref<Curve> &p_curve);
-	Ref<Curve> get_sync_mapping_curve() const;
 
 	void set_priority(int p_priority);
 	int get_priority() const;
@@ -262,7 +254,6 @@ class AnimationNodeStateMachinePlayback : public Resource {
 		AnimationNodeStateMachineTransition::SwitchMode switch_mode;
 		bool is_reset;
 		bool break_loop_at_end;
-		Ref<Curve> sync_mapping_curve;
 	};
 
 	struct ChildStateMachineInfo {
