@@ -325,6 +325,7 @@ public:
 	void move_to_center();
 
 	void set_size(const Size2i &p_size);
+	Size2i get_size() const;
 	void reset_size();
 
 	Point2i get_position_with_decorations() const;
