@@ -1252,19 +1252,6 @@ Rect2 Viewport::get_visible_rect() const {
 	return r;
 }
 
-Size2i Viewport::get_size() const {
-	ERR_READ_THREAD_GUARD_V(Size2());
-	return _get_size();
-}
-
-Size2i Viewport::get_size_2d_override() const {
-	ERR_READ_THREAD_GUARD_V(Size2i());
-	// Rounding will cause offset issues with the
-	// exact positioning of subwindows, but changing the
-	// type of size_2d_override would break compatibility.
-	return Size2i((_get_size_2d_override() + Size2(0.5, 0.5)).floor());
-}
-
 void Viewport::canvas_parent_mark_dirty(Node *p_node) {
 	ERR_MAIN_THREAD_GUARD;
 	bool request_update = gui.canvas_parents_with_dirty_order.is_empty();
@@ -5650,6 +5637,11 @@ void SubViewport::_internal_set_size(const Size2i &p_size, const int p_view_coun
 	}
 }
 
+Size2i SubViewport::get_size() const {
+	ERR_READ_THREAD_GUARD_V(Size2());
+	return _get_size();
+}
+
 void SubViewport::set_view_count(const int p_view_count) {
 	ERR_MAIN_THREAD_GUARD;
 
@@ -5666,6 +5658,14 @@ int SubViewport::get_view_count() const {
 void SubViewport::set_size_2d_override(const Size2i &p_size) {
 	ERR_MAIN_THREAD_GUARD;
 	_set_size(_get_size(), _get_view_count(), p_size, true);
+}
+
+Size2i SubViewport::get_size_2d_override() const {
+	ERR_READ_THREAD_GUARD_V(Size2i());
+	// Rounding will cause offset issues with the
+	// exact positioning of subwindows, but changing the
+	// type of size_2d_override would break compatibility.
+	return Size2i((_get_size_2d_override() + Size2(0.5, 0.5)).floor());
 }
 
 void SubViewport::set_size_2d_override_stretch(bool p_enable) {
